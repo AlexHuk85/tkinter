@@ -25,7 +25,7 @@ def view():
 def search(title='',author='',year='',isbn=''):
     conn = sqlite3.connect('books.db')
     cur=conn.cursor()
-    cur.execute("SELECT * FROM book WHERE title=? OR author=? OR year=? OR isbn=?",(title,author,year,isbn))
+    cur.execute("SELECT * FROM book WHERE title like ? OR author=? OR year=? OR isbn=?",('%'+title+'%',author,year,isbn))
     rows=cur.fetchall()
     conn.close()
     return rows
@@ -40,7 +40,7 @@ def delete(id):
 def update(title,author,year,isbn,id):
     conn = sqlite3.connect('books.db')
     cur=conn.cursor()
-    cur.execute("UPDATE book SET title=?,author=?,year=?isbn=? WHERE id=?",(title,author,year,isbn,id))
+    cur.execute("UPDATE book SET title=?,author=?,year=?,isbn=? WHERE id=?",(title,author,year,isbn,id))
     conn.commit()
     conn.close()
 
